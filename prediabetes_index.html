@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I'm Pre-Diabetic. Now What? | A Real-World Toolkit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+        Wellwithall Inspired Theme & Base Styles
+        ============================================
+        - Background: #FAF8F5 (Soft Off-White)
+        - Text: #3D405B (Charcoal Blue)
+        - Primary Accent: #006D77 (Deep Teal)
+        - Secondary Accent: #E29578 (Warm Peach)
+        - Success/Positive: #83C5BE (Mint Green)
+        - Borders/Dividers: #E0E0E0 (Light Gray)
+        */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.7;
+            color: #3D405B; /* Charcoal Blue */
+            background-color: #FAF8F5; /* Soft Off-White */
+            overflow-x: hidden;
+        }
+
+        /* ============================================
+        Hero Section
+        ============================================
+        */
+        .hero {
+            background-color: #EDF6F9; /* Very Light Blue */
+            color: #3D405B;
+            padding: 60px 20px 40px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3rem);
+            font-weight: 800;
+            color: #006D77; /* Deep Teal */
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            opacity: 0.9;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ============================================
+        Navigation - Bottom Tab Bar (Mobile First)
+        ============================================
+        */
+        .tab-navigation {
+            display: flex;
+            background: #ffffff;
+            box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding-bottom: env(safe-area-inset-bottom);
+            border-top: 1px solid #E0E0E0;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px 8px;
+            text-align: center;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            color: #828282; /* Medium Gray */
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab.active {
+            color: #006D77; /* Deep Teal */
+            font-weight: 600;
+        }
+
+        .tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background-color: #006D77;
+            border-radius: 0 0 3px 3px;
+        }
+
+        .tab-icon {
+            display: block;
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+        }
+
+        .tab-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* ============================================
+        Content & Cards
+        ============================================
+        */
+        .content {
+            padding: 30px 20px 120px; /* Padding for bottom nav */
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            border: 1px solid #E0E0E0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+        }
+
+        .card h2 {
+            color: #006D77; /* Deep Teal */
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .card h3 {
+            color: #3D405B;
+            font-size: 1.2rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            border-left: 4px solid #83C5BE; /* Mint Green */
+            padding-left: 15px;
+        }
+
+        .card p, .card li {
+            color: #3D405B;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+        
+        .card ul {
+            list-style-position: inside;
+            padding-left: 5px;
+        }
+
+        /* Reframing/Quote Card */
+        .reframe-card {
+            background-color: #FFF8E1; /* Light Yellow */
+            border-left: 5px solid #E29578; /* Warm Peach */
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .reframe-card p {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #3D405B;
+            margin: 0;
+        }
+        .reframe-card p strong {
+             color: #006D77;
+        }
+
+        /* ============================================
+        A1C Visual Infographic
+        ============================================
+        */
+        .a1c-visual {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .a1c-gauge {
+            position: relative;
+            width: 250px;
+            height: 125px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .gauge-background {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 180deg,
+                #83C5BE 0deg 60deg, /* Mint Green - Normal */
+                #FFD166 60deg 120deg, /* Sunflower Yellow - Prediabetes */
+                #EF476F 120deg 180deg /* Coral Red - Diabetes */
+            );
+        }
+
+        .gauge-center {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 100px;
+            background: #ffffff;
+            border-radius: 100px 100px 0 0;
+        }
+
+        .gauge-needle {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 3px;
+            height: 100px;
+            background: #3D405B;
+            transform-origin: bottom center;
+            transform: translateX(-50%) rotate(-90deg);
+            transition: transform 1s ease-in-out;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            border-radius: 3px;
+        }
+        
+        #a1cValueDisplay {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #006D77;
+        }
+
+        .a1c-ranges {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .a1c-range {
+            text-align: center;
+            flex: 1;
+        }
+
+        .range-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .range-label {
+            font-size: 0.9rem;
+            color: #828282;
+        }
+
+        .range-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #3D405B;
+        }
+
+        /* ============================================
+        Interactive Elements
+        ============================================
+        */
+
+        /* Checklist */
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin: 15px 0;
+            padding: 15px;
+            background: #F8F9FA;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid #E0E0E0;
+        }
+
+        .checklist-item:hover {
+            background: #EDF6F9;
+            border-color: #83C5BE;
+        }
+
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #BDBDBD;
+            border-radius: 6px;
+            flex-shrink: 0;
+            position: relative;
+            transition: all 0.3s ease;
+            margin-top: 2px;
+        }
+
+        .checkbox.checked {
+            background-color: #83C5BE; /* Mint Green */
+            border-color: #006D77;
+        }
+
+        .checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .checklist-content strong {
+            display: block;
+            color: #006D77;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .checklist-content p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        /* Action Button */
+        .action-button {
+            background: #006D77; /* Deep Teal */
+            color: #ffffff;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            margin: 10px 5px;
+            box-shadow: 0 4px 15px rgba(0, 109, 119, 0.2);
+        }
+
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 109, 119, 0.3);
+        }
+        
+        .action-button.secondary {
+            background: transparent;
+            color: #006D77;
+            border: 2px solid #006D77;
+            box-shadow: none;
+        }
+
+        /* Input Field */
+        .input-field {
+            background: #F8F9FA; 
+            border: 1px solid #E0E0E0;
+            color: #3D405B; 
+            padding: 15px; 
+            border-radius: 10px; 
+            font-size: 1.5rem; 
+            width: 150px; 
+            text-align: center; 
+            margin: 20px auto;
+            display: block;
+            font-family: 'Inter', sans-serif;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #006D77;
+            box-shadow: 0 0 0 3px rgba(0, 109, 119, 0.1);
+        }
+
+        /* Food Swap Visual */
+        .swap-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+            padding: 20px;
+            background: #F8F9FA;
+            border-radius: 12px;
+        }
+
+        .swap-item {
+            flex: 1;
+            text-align: center;
+        }
+
+        .swap-icon {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+        
+        .swap-item p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .swap-item strong {
+            font-size: 1rem;
+            color: #3D405B;
+        }
+
+        .swap-arrow {
+            font-size: 2rem;
+            color: #83C5BE; /* Mint Green */
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .swap-container {
+                flex-direction: column;
+            }
+            .swap-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        @media (min-width: 769px) {
+            .tab-navigation {
+                position: sticky;
+                top: 0;
+                bottom: auto;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                box-shadow: 0 2px 20px rgba(0,0,0,0.07);
+            }
+
+            .tab {
+                padding: 20px;
+            }
+
+            .tab-icon {
+                display: inline-block;
+                margin-right: 8px;
+                margin-bottom: 0;
+            }
+
+            .tab-label {
+                display: inline;
+                font-size: 0.9rem;
+            }
+
+            .content {
+                padding: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <h1>I'm Pre-Diabetic. Now What?</h1>
+        <p class="subtitle">A simple, real-world toolkit for turning concern into confident action. You've got this.</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="tab-navigation">
+        <button class="tab active" onclick="showSection('understand')">
+            <span class="tab-icon">🧠</span>
+            <span class="tab-label">Understand</span>
+        </button>
+        <button class="tab" onclick="showSection('numbers')">
+            <span class="tab-icon">📊</span>
+            <span class="tab-label">Numbers</span>
+        </button>
+        <button class="tab" onclick="showSection('food')">
+            <span class="tab-icon">🍎</span>
+            <span class="tab-label">Food</span>
+        </button>
+        <button class="tab" onclick="showSection('move')">
+            <span class="tab-icon">🏃‍♀️</span>
+            <span class="tab-label">Move</span>
+        </button>
+        <button class="tab" onclick="showSection('support')">
+            <span class="tab-icon">❤️</span>
+            <span class="tab-label">Support</span>
+        </button>
+    </nav>
+
+    <!-- Content Container -->
+    <main class="content">
+        <!-- Understanding Section -->
+        <section id="understand" class="section active">
+            <div class="card">
+                <h2>First, Let's Reframe This.</h2>
+                <p>Receiving a prediabetes diagnosis can be scary. But it's not a final verdict—it's an early warning. It's an opportunity to make small, powerful changes that can lead to a long and vibrant life.</p>
+                <div class="reframe-card">
+                    <p>Instead of "I have a pre-disease," try thinking: <br><strong>"I have a powerful reason to get healthier."</strong></p>
+                </div>
+                <p>This toolkit is designed to help you do just that, focusing on what's proven to work without overwhelming you.</p>
+            </div>
+
+            <div class="card">
+                <h2>What is Prediabetes, Really?</h2>
+                <p>It simply means your blood sugar levels are higher than normal, but not yet high enough to be diagnosed as type 2 diabetes. Think of it as a yellow light—a signal to slow down and pay attention.</p>
+                <h3>The Key Player: Insulin Resistance</h3>
+                <p>Your body isn't using insulin as effectively as it should. Insulin is a hormone that acts like a key, letting sugar from your blood into your cells for energy. When cells become "resistant," more sugar stays in your bloodstream, leading to higher A1C levels.</p>
+            </div>
+        </section>
+
+        <!-- Numbers Section -->
+        <section id="numbers" class="section">
+            <div class="card">
+                <h2>Know Your Numbers</h2>
+                <p>The most important number to understand is your Hemoglobin A1C (or just "A1C"). It gives you a 3-month average of your blood sugar levels. It's the best indicator of your progress.</p>
+                
+                <div class="a1c-visual">
+                    <div class="a1c-gauge">
+                        <div class="gauge-background"></div>
+                        <div class="gauge-center">
+                            <div id="a1cValueDisplay">5.7%</div>
+                        </div>
+                        <div class="gauge-needle" id="a1cNeedle"></div>
+                    </div>
+                    <div class="a1c-ranges">
+                        <div class="a1c-range">
+                            <div class="range-color" style="background: #83C5BE;"></div>
+                            <div class="range-label">Normal</div>
+                            <div class="range-value">&lt; 5.7%</div>
+                        </div>
+                        <div class="a1c-range">
+                            <div class="range-color" style="background: #FFD166;"></div>
+                            <div class="range-label">Prediabetes</div>
+                            <div class="range-value">5.7 - 6.4%</div>
+                        </div>
+                        <div class="a1c-range">
+                            <div class="range-color" style="background: #EF476F;"></div>
+                            <div class="range-label">Diabetes</div>
+                            <div class="range-value">≥ 6.5%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Track Your A1C</h3>
+                <p style="text-align:center; margin-bottom: 10px;">Enter your latest A1C result to see where you stand.</p>
+                <input type="number" id="a1cInput" class="input-field" step="0.1" min="4" max="10" placeholder="5.7" oninput="updateA1CGauge(this.value)">
+                <div id="a1cFeedback" style="text-align: center; font-weight: 600; min-height: 25px;"></div>
+            </div>
+
+            <div class="card">
+                <h2>Questions for Your Doctor</h2>
+                <p>Use your next appointment to build your support team. Here are some great questions to ask:</p>
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <div class="checkbox"></div>
+                    <div class="checklist-content">
+                        <strong>Testing Frequency</strong>
+                        <p>"Based on my numbers, how often should we re-check my A1C?"</p>
+                    </div>
+                </div>
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <div class="checkbox"></div>
+                    <div class="checklist-content">
+                        <strong>Medication</strong>
+                        <p>"At what point should we consider medication like Metformin?"</p>
+                    </div>
+                </div>
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <div class="checkbox"></div>
+                    <div class="checklist-content">
+                        <strong>Referrals</strong>
+                        <p>"Can you refer me to a registered dietitian or a certified diabetes educator?"</p>
+                    </div>
+                </div>
+                 <div class="checklist-item" onclick="toggleCheck(this)">
+                    <div class="checkbox"></div>
+                    <div class="checklist-content">
+                        <strong>Other Factors</strong>
+                        <p>"Are there any other factors like blood pressure or cholesterol we need to watch closely?"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Food Section -->
+        <section id="food" class="section">
+            <div class="card">
+                <h2>Food: It's About Swaps, Not Sacrifice</h2>
+                <p>You don't need to eat perfectly. Small, consistent changes have a huge impact. Focus on adding more good stuff (fiber, protein) rather than just removing bad stuff.</p>
+                
+                <h3>Easy, Powerful Food Swaps</h3>
+                <div class="swap-container">
+                    <div class="swap-item">
+                        <div class="swap-icon">🥤</div>
+                        <p><strong>Instead of Soda/Juice</strong></p>
+                    </div>
+                    <div class="swap-arrow">→</div>
+                    <div class="swap-item">
+                        <div class="swap-icon">💧</div>
+                        <p><strong>Try Sparkling Water</strong></p>
+                    </div>
+                </div>
+
+                <div class="swap-container">
+                    <div class="swap-item">
+                        <div class="swap-icon">🍞</div>
+                        <p><strong>Instead of White Bread</strong></p>
+                    </div>
+                    <div class="swap-arrow">→</div>
+                    <div class="swap-item">
+                        <div class="swap-icon">🌾</div>
+                        <p><strong>Try 100% Whole Wheat</strong></p>
+                    </div>
+                </div>
+                
+                <div class="swap-container">
+                    <div class="swap-item">
+                        <div class="swap-icon">🍚</div>
+                        <p><strong>Instead of White Rice</strong></p>
+                    </div>
+                    <div class="swap-arrow">→</div>
+                    <div class="swap-item">
+                        <div class="swap-icon">🥦</div>
+                        <p><strong>Try Quinoa or Brown Rice</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>The "Plate Method"</h2>
+                <p>This is the easiest way to build a balanced meal without counting calories. Just visualize your plate:</p>
+                <ul style="list-style-type: none; padding: 0; margin-top: 15px;">
+                    <li><strong>½ Plate:</strong> Non-starchy vegetables (broccoli, salad, green beans)</li>
+                    <li><strong>¼ Plate:</strong> Lean protein (chicken, fish, beans, tofu)</li>
+                    <li><strong>¼ Plate:</strong> Complex carbs (quinoa, sweet potato, whole wheat pasta)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Move Section -->
+        <section id="move" class="section">
+            <div class="card">
+                <h2>Movement is Medicine</h2>
+                <p>Physical activity makes your cells much more sensitive to insulin, which is exactly what we want! It helps your body use sugar for energy instead of letting it build up in your blood.</p>
+                <div class="reframe-card">
+                    <p>The goal isn't intense workouts. It's just <strong>moving more than you did yesterday.</strong></p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>The Power of a 10-Minute Walk</h2>
+                <p>Studies show that a simple 10-15 minute walk after your biggest meal of the day can significantly lower your blood sugar for hours.</p>
+                <h3>Your First Goal: 150 Minutes a Week</h3>
+                <p>That's the magic number recommended by the CDC. It sounds like a lot, but look how it breaks down:</p>
+                <ul>
+                    <li>22 minutes every day</li>
+                    <li>30 minutes, 5 days a week</li>
+                    <li>Two 15-minute walks, 5 days a week</li>
+                </ul>
+                <p style="text-align: center; margin-top: 20px;">
+                    <button class="action-button" onclick="alert('Great! Try a brisk walk after your next meal.')">I Can Do That!</button>
+                </p>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section id="support" class="section">
+            <div class="card">
+                <h2>You Are Not Alone In This</h2>
+                <p>Managing your health is easier and more effective when you have support. This can come from family, friends, or health professionals.</p>
+                <h3>Building Your Team</h3>
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <div class="checkbox"></div>
+                    <div class="checklist-content">
+                        <strong>Talk to a Friend or Family Member</strong>
+                        <p>Share what you're going through. Ask them to join you for walks or try healthy recipes with you.</p>
+                    </div>
+                </div>
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <div class="checkbox"></div>
+                    <div class="checklist-content">
+                        <strong>Find a "Health Buddy"</strong>
+                        <p>Is there someone else you know working on their health? Team up to share wins and challenges.</p>
+                    </div>
+                </div>
+                 <div class="checklist-item" onclick="toggleCheck(this)">
+                    <div class="checkbox"></div>
+                    <div class="checklist-content">
+                        <strong>Ask for Professional Help</strong>
+                        <p>A registered dietitian can provide personalized food advice that you'll actually enjoy.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>Stress & Sleep Matter, Too</h2>
+                <p>Chronic stress and poor sleep can raise blood sugar just like food can. They are just as important to manage.</p>
+                <h3>Simple Steps for Better Rest & Less Stress:</h3>
+                <ul>
+                    <li><strong>Consistent Bedtime:</strong> Aim for 7-8 hours of sleep per night.</li>
+                    <li><strong>Screen-Free Hour:</strong> Put away phones and screens an hour before bed.</li>
+                    <li><strong>5-Minute Breathers:</strong> When you feel stressed, take 5 deep, slow breaths.</li>
+                    <li><strong>Mindful Moments:</strong> Find one small moment of joy or gratitude each day.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // --- App State ---
+        let currentSection = 'understand';
+
+        // --- DOM Elements ---
+        const sections = document.querySelectorAll('.section');
+        const tabs = document.querySelectorAll('.tab');
+        const a1cNeedle = document.getElementById('a1cNeedle');
+        const a1cInput = document.getElementById('a1cInput');
+        const a1cFeedback = document.getElementById('a1cFeedback');
+        const a1cValueDisplay = document.getElementById('a1cValueDisplay');
+
+        // --- Functions ---
+
+        /**
+         * Shows a specific content section and updates the active tab.
+         * @param {string} sectionId - The ID of the section to show.
+         */
+        function showSection(sectionId) {
+            // Hide all sections
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show the selected section
+            const activeSection = document.getElementById(sectionId);
+            if(activeSection) {
+                activeSection.classList.add('active');
+            }
+            
+            // Update tabs
+            tabs.forEach(tab => {
+                // Check if the tab's onclick attribute corresponds to the sectionId
+                if (tab.getAttribute('onclick').includes(`'${sectionId}'`)) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            currentSection = sectionId;
+            
+            // Scroll to the top of the content area for better UX
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /**
+         * Toggles the 'checked' class on a checklist item's checkbox.
+         * @param {HTMLElement} element - The checklist-item element that was clicked.
+         */
+        function toggleCheck(element) {
+            const checkbox = element.querySelector('.checkbox');
+            if(checkbox) {
+                checkbox.classList.toggle('checked');
+            }
+        }
+
+        /**
+         * Updates the A1C gauge needle and feedback text based on user input.
+         * @param {string | number} value - The A1C value from the input field.
+         */
+        function updateA1CGauge(value) {
+            const val = parseFloat(value);
+            if (isNaN(val)) {
+                // Reset to default if input is not a number
+                a1cNeedle.style.transform = `translateX(-50%) rotate(-30deg)`;
+                a1cFeedback.innerHTML = '';
+                a1cValueDisplay.textContent = '---';
+                return;
+            }
+
+            // Clamp value between 4 and 10 for safety
+            const clampedVal = Math.max(4, Math.min(10, val));
+            
+            // Update the text display inside the gauge
+            a1cValueDisplay.textContent = clampedVal.toFixed(1) + '%';
+
+            // Calculate rotation: -90 (A1C 4.0) to +90 (A1C 8.0+)
+            let rotation = -90 + ((clampedVal - 4) / 4) * 180;
+            rotation = Math.max(-90, Math.min(90, rotation)); // Clamp rotation
+            
+            a1cNeedle.style.transform = `translateX(-50%) rotate(${rotation}deg)`;
+            
+            // Provide textual feedback
+            if (clampedVal < 5.7) {
+                a1cFeedback.innerHTML = `<span style="color: #006D77;">This is in the normal range. Keep up the great work!</span>`;
+            } else if (clampedVal <= 6.4) {
+                a1cFeedback.innerHTML = `<span style="color: #D68C45;">This is the prediabetes range. You're in the right place!</span>`;
+            } else {
+                a1cFeedback.innerHTML = `<span style="color: #EF476F;">This is in the diabetes range. Please consult your doctor.</span>`;
+            }
+        }
+
+        // --- Initial Setup ---
+        
+        // Set the initial state when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            showSection('understand');
+            // Set initial gauge position to 5.7
+            updateA1CGauge(5.7); 
+            a1cInput.value = '5.7';
+        });
+
+    </script>
+</body>
+</html>
